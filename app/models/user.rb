@@ -28,7 +28,22 @@ class User < ApplicationRecord
    followings.include?(user)#自分がフォローしているユーザーを示すfollowings配列に引数として渡されたユーザーが含まれているかどうかをチェック
  end
  #引数がuser_idではなくuserなのは、userを引数にすることでuser.nameやuser.emailなどの情報も扱うことができ、柔軟性と可読性を両立できるようにするため
-  
+ 
+ #検索方法による条件分岐の追記
+ def self.looks(search, word)
+    if search == "perfect_match"
+      user = User.where("name LIKE?", "#{word}")
+    elsif search == "forward_match"
+      user = User.where("name LIKE?","#{word}%")
+    elsif search == "backward_match"
+      user = User.where("name LIKE?","%#{word}")
+    elsif search == "partial_match"
+      user = User.where("name LIKE?","%#{word}%")
+    else
+      user = User.all
+    end
+  end
+ 
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
