@@ -46,12 +46,8 @@
             <% end %>
            </div>
           <% end %>
-           <div>
-            <%= form_with model:[@book, @book_comment] do |f| %>
-            <%= f.text_area :comment, rows:'6', class: 'form-control' %>
-            <%= f.submit "送信" %>
-          <% end %>
-          </div>
+        <div class=<%= "comment_form" %>
+         <%= render 'book_comments/comments', book: @book, book_comment: @book_comment %>
     </div>
   </div>
 </div>
