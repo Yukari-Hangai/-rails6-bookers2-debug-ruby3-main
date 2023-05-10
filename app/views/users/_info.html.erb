@@ -22,11 +22,13 @@
   </tr>
 </table>
 
+<% if user.name != "guestuser" %>
 <div class='row'>
   <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
     <i class="fas fa-user-cog"></i>
   <% end %>
 </div>
+<% end %>
 <br>
 <div class = 'follow'>
  <% if user == current_user then %>
