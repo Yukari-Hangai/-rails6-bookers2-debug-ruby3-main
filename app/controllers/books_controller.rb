@@ -8,8 +8,19 @@ class BooksController < ApplicationController
   end
 
   def index
+    to = Time.current.at_end_of_day #今現在の日の23：59をtoに代入
+    from = (to - 6.day).at_beginning_of_day #今現在から6日前の0：00をfromに代入
+    # @books = Book.includes(:favorited_users).
+    #   sort {|a,b|
+    #     b.favorited_users.includes(:favorites).where(created_at: from...to).size <=>
+    #     a.favorited_users.includes(:favorites).where(created_at: from...to).size
+    #   }
+    @books = Book.includes(:favorited_users).
+      sort_by {|x|
+       puts "Book ID: #{x.id}, Favorited Count: #{x.favorited_users.includes(:favorites).where(created_at: from...to).size}"
+        x.favorited_users.includes(:favorites).where(created_at: from...to).size
+      }.reverse
     @book = Book.new
-    @books = Book.all
   end
 
   def create
