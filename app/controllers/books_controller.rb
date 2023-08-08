@@ -15,10 +15,9 @@ class BooksController < ApplicationController
     #     b.favorited_users.includes(:favorites).where(created_at: from...to).size <=>
     #     a.favorited_users.includes(:favorites).where(created_at: from...to).size
     #   }
-    @books = Book.includes(:favorited_users).
+    @books = Book.includes(:favorites).
       sort_by {|x|
-       puts "Book ID: #{x.id}, Favorited Count: #{x.favorited_users.includes(:favorites).where(created_at: from...to).size}"
-        x.favorited_users.includes(:favorites).where(created_at: from...to).size
+        x.favorites.where(created_at: from...to).count
       }.reverse
     @book = Book.new
   end
