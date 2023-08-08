@@ -4,6 +4,24 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @currentUserEntry = Entry.where(user_id: current_user.id)#ログインしているユーザー
+    @userEntry = Entry.where(user_id: @user.id)#相手ユーザー
+    if @user.id == current_user.id#@user.idがログインユーザーか
+    else
+      @currentUserEntry.each do |cu|
+        @userEntry.aech do |u|
+          if cu.room_id == u.room_id then#自分のroom_idと相手のroom_idが一致しているか
+            @isRoom = true
+            @roomID = cu.room_id
+          end
+        end
+      end
+      if @isRoom#isRoomがtrueか
+      else#isRoomがfalseのとき
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
     @books = @user.books
     @book = Book.new
   end
