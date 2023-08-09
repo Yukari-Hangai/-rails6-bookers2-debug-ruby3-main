@@ -30,6 +30,7 @@
 </div>
 <% end %>
 <br>
+
 <div class = 'follow'>
  <% if user == current_user then %>
   <% elsif current_user.following?(user) then %>
@@ -37,4 +38,23 @@
   <% else %>
    <%= link_to "フォローする", user_relationships_path(user.id), method: :post, class: "btn btn-success btn-sm" %>
  <% end %>
+</div>
+<br>
+<div class = 'chat'>
+  <% if user.id == current_user.id %>
+  <% else %>
+    <% unless current_user.following?(user) && user.following?(current_user) %>
+      <%= form_for room do |f| %>
+        <%= fields_for entry do |e| %>
+          <%= e.hidden_field :user_id, value: user.id %>
+        <% end %>
+        <%= f.submit "チャットを始める", class:"btn btn-primary btn-sm user-show-chat" %>
+      <% end %>
+    <% else %>
+      <% if isRoom == true %>
+        <%= link_to "チャットへ", room_path(roomId), class:'btn btn-primary btn-sm' %>
+        <!--<p class="user-show-room"><a href="/rooms/<!%= roomId %>" class="btn btn-primary btn-lg">チャットへ</a></p>-->
+      <% end %>
+    <% end %>
+  <% end %>
 </div>

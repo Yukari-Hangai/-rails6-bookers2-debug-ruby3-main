@@ -9,10 +9,10 @@ class UsersController < ApplicationController
     if @user.id == current_user.id#@user.idがログインユーザーか
     else
       @currentUserEntry.each do |cu|
-        @userEntry.aech do |u|
+        @userEntry.each do |u|
           if cu.room_id == u.room_id then#自分のroom_idと相手のroom_idが一致しているか
             @isRoom = true
-            @roomID = cu.room_id
+            @roomId = cu.room_id
           end
         end
       end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
   end
-  
+
   def edit
     @user = User.find(params[:id])
     unless @user == current_user

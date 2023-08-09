@@ -7,18 +7,18 @@ before_action :authenticate_user!
     @entry2 = Entry.create(params.require(:entry).permit(:user_id, :room_id).merge(:room_id => @room.id))
     redirect_to "/rooms/#{@room.id}"
   end
-  
+
   def show
     @room = Room.find(params[:id])
-    if Entry.where(:user_id => current_user.id, :room_id => @roomid).present?
+    if Entry.where(:user_id => current_user.id, :room_id => @room.id).present?
       @messages = @room.messages
       @message = Message.new
       @entries = @room.entries #Roomで相手の名前を表示する為
-      @myUserID = current_user.id 
+      @myUserId = current_user.id
     else
       redirect_back(fallback_location: root_path)
     end
   end
-  
+
 end
 
