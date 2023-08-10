@@ -1,36 +1,30 @@
-<% @entries.each do |e| %>
-  <% if @myUserId != e.user.id %>
-    <h2><%= e.user.name %>さんとのトークルーム</h2>
-  <% end %>
-<% end %>
-<%= link_to "ユーザー一覧に戻る", users_path %>
+<div class="row">
+  <div class="col-12">
+    <% @entries.each do |e| %>
+      <% if @myUserId != e.user.id %>
+        <h2><%= e.user.name %>さんとのトークルーム</h2>
+      <% end %>
+    <% end %>
+    <%= link_to "ユーザー一覧に戻る", users_path %>
+  </div>
 
-<% if @messages.present? %>
-  <% @messages.each do |m| %>
-    <% @myUserId == m.user.id %>
-    <p><%= m.user.name %></p>
-    <p><%= m.message %></p>
+<div class="col-4"></div>
+<div class="col-6">
+  <% if @messages.present? %>
+    <% @messages.each do |m| %>
+      <% if @myUserId == m.user.id %>
+        <div class="current-user-message text-right text-light">
+          <span class="bg-primary"><%= m.user.name %>:<%= m.message %></span>
+        </div>
+      <% else %>
+        <div class="current-user-message text-left text-light">
+          <span class="bg-success"><%= m.user.name %>:<%= m.message %></span>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
-<% end %>
-
-<%= form_for @message do |f| %>
-  <%= f.text_field :message, placeholder: "メッセージを入力してください", size: 50, class:"form-text-field" %>
-    <%= f.hidden_field :room_id, value: @room.id %>
-      <%= f.submit "投稿", class: 'form-submit' %>
-<% end %><% @entries.each do |e| %>
-  <% if @myUserId != e.user.id %>
-    <h2><%= e.user.name %>さんとのトークルーム</h2>
-  <% end %>
-<% end %>
-<%= link_to "ユーザー一覧に戻る", users_path %>
-
-<% if @messages.present? %>
-  <% @messages.each do |m| %>
-    <% @myUserId == m.user.id %>
-    <p><%= m.user.name %></p>
-    <p><%= m.message %></p>
-  <% end %>
-<% end %>
+</div>
+<div class="col-2"></div>
 
 <%= form_for @message do |f| %>
   <%= f.text_field :message, placeholder: "メッセージを入力してください", size: 50, class:"form-text-field" %>

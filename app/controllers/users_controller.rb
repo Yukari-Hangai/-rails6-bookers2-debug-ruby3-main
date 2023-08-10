@@ -6,8 +6,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @currentUserEntry = Entry.where(user_id: current_user.id)#ログインしているユーザー
     @userEntry = Entry.where(user_id: @user.id)#相手ユーザー
-    if @user.id == current_user.id#@user.idがログインユーザーか
-    else
+    unless @user.id == current_user.id#@user.idがログインユーザーか
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
           if cu.room_id == u.room_id then#自分のroom_idと相手のroom_idが一致しているか
@@ -16,8 +15,8 @@ class UsersController < ApplicationController
           end
         end
       end
-      if @isRoom#isRoomがtrueか
-      else#isRoomがfalseのとき
+      if @isRoom#isRoomがfalseのとき
+      else
         @room = Room.new
         @entry = Entry.new
       end
