@@ -1,0 +1,23 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>今日の投稿数</th>
+      <th>前日の投稿数</th>
+      <th>前日比</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= today.count %></td>
+      <td><%= yesterday.count %></td>
+      <td>
+        <% if yesterday.count == 0 %>
+          前日の投稿なし
+        <% else %>
+          the_day_before = @today.count / @yesterday.count
+          <%= (the_day_before * 100 ).round %>%
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>

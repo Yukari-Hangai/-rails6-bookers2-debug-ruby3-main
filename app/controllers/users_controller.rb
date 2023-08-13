@@ -23,6 +23,8 @@ class UsersController < ApplicationController
     end
     @books = @user.books
     @book = Book.new
+    @today = @books.where("DATE(created_at) = ?", Date.today)
+    @yesterday = @books.where("DATE(created_at) = ?", Date.yesterday)
   end
 
   def index
