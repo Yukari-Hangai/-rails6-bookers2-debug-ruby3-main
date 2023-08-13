@@ -14,8 +14,32 @@
         <% if yesterday.count == 0 %>
           前日の投稿なし
         <% else %>
-          the_day_before = @today.count / @yesterday.count
+          the_day_before = today.count / yesterday.count
           <%= (the_day_before * 100 ).round %>%
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>今週の投稿数</th>
+      <th>前週の投稿数</th>
+      <th>前週比</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= this_week.count %></td>
+      <td><%= last_week.count %></td>
+      <td>
+        <% if last_week.count == 0 %>
+          前週の投稿なし
+        <% else %>
+          the_week_before = this_week.count / last_week.count
+          <%= (the_week_before * 100 ).round %>%
         <% end %>
       </td>
     </tr>
