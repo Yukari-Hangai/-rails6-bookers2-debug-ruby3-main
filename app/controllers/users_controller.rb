@@ -23,8 +23,8 @@ class UsersController < ApplicationController
     end
     @books = @user.books
     @book = Book.new
-    @today = @books.where("DATE(created_at) = ?", Date.today)
-    @yesterday = @books.where("DATE(created_at) = ?", Date.yesterday)
+    @today = @books.created_today
+    @yesterday = @books.created_yesterday
     @this_week = @books.created_this_week
     @last_week = @books.created_last_week
   end
