@@ -49,7 +49,7 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
-  
+
   def search
     @user = User.find(params[:user_id])
     @books = @user.books
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
       @search_book = @books.where(['created_at LIKE ? ', "#{create_at}%"]).count
     end
   end
-  
+
   private
 
   def user_params
