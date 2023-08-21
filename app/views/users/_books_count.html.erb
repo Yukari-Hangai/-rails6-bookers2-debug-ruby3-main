@@ -36,7 +36,7 @@
         <% if last_week.count == 0 %>
           前週の投稿なし
         <% else %>
-          the_week_before = this_week.count / last_week.count
+          <% the_week_before = this_week.count / last_week.count.to_f %>
           <%= (the_week_before * 100 ).round %>%
         <% end %>
       </td>
