@@ -21,7 +21,7 @@
             <%= link_to "フォローする", user_relationships_path(user.id), method: :post %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Show', user, data: {"turbolinks" => false} %></td>
       </tr>
     <% end %>
   </tbody>
