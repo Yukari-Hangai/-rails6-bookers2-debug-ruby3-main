@@ -26,12 +26,20 @@ class BooksController < ApplicationController
   end
 
   def index
-    to = Time.current.at_end_of_day #今現在の日の23：59をtoに代入
-    from = (to - 6.day).at_beginning_of_day #今現在から6日前の0：00をfromに代入
-    @books = Book.includes(:favorites).
-      sort_by {|x|
-        x.favorites.where(created_at: from...to).count
-      }.reverse
+    if params[:latest]
+      @books = Book.latest
+    elsif params[:old]
+      @books = Book.old
+    elsif params[:star_count]
+      @books = Book.star_count
+    else
+      to = Time.current.at_end_of_day #今現在の日の23：59をtoに代入
+      from = (to - 6.day).at_beginning_of_day #今現在から6日前の0：00をfromに代入
+      @books = Book.includes(:favorites).
+        sort_by {|x|
+          x.favorites.where(created_at: from...to).count
+        }.reverse
+    end
     @book = Book.new
   end
 
@@ -73,5 +81,5 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body, :star)
   end
-  
+
 end
