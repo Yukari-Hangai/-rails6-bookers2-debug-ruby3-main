@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root :to =>"homes#top"
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
+  get "tag_search" => "tag_searches#search"
 
    devise_scope :user do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'

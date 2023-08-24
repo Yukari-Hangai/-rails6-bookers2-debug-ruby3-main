@@ -22,7 +22,7 @@
         </tr>
       </tbody>
      <% end %>
-    
+
   </table>
 <% else %>
     <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
@@ -39,9 +39,18 @@
     <% @books.each do |book| %>
     <tbody>
         <tr>
-          <td><%= image_tag book.user.get_profile_image, size:'50x50' %></td>
-          <td><%= book.title %></td>
-          <td><%= book.body %></td>
+        <td><%= link_to(book.user) do %>
+          <%= image_tag book.user.get_profile_image, size:'50x50' %>
+          <% end %>
+        </td>
+        <td><%= link_to book.title,book %></td>
+        <td><%= book.body %></td>
+        <td><%= book.tag %>
+        <td class =<%= "favorite_buttons" + book.id.to_s %>>
+         <%= render 'favorites/favorite_btn', book: book %></td>
+        <td>コメント数：<%= book.book_comments.count %></td>
+        <td>閲覧数：<%= book.view_counts.count %></td>
+        <td><%= render 'books/static_rate', book: book %></td>
         </tr>
     </tbody>
     <% end %>
